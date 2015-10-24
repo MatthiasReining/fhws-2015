@@ -1,6 +1,6 @@
-package de.fhws.app.presentation.frontcontroller;
+package de.fhws.app.showcase.frontcontroller;
 
-import de.fhws.app.presentation.frontcontroller.commands.Command;
+import de.fhws.app.showcase.frontcontroller.commands.Command;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

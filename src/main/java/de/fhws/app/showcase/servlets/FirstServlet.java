@@ -1,4 +1,4 @@
-package de.fhws.app.presentation;
+package de.fhws.app.showcase.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -1,4 +1,4 @@
-package de.fhws.app.filter;
+package de.fhws.app.showcase.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;

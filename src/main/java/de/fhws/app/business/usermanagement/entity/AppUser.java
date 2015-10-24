@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.fhws.app.entity;
+package de.fhws.app.business.usermanagement.entity;
 
 import java.io.PrintStream;
 import java.io.Serializable;

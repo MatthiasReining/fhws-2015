@@ -1,6 +1,6 @@
-package de.fhws.app.presentation;
+package de.fhws.app.showcase.servlets;
 
-import de.fhws.app.entity.AppUser;
+import de.fhws.app.business.usermanagement.entity.AppUser;
 import java.io.IOException;
 import java.util.Date;
 import javax.servlet.ServletException;

@@ -1,7 +1,7 @@
-package de.fhws.app.presentation;
+package de.fhws.app.showcase.servlets;
 
 import com.sun.net.httpserver.HttpServer;
-import de.fhws.app.entity.AppUser;
+import de.fhws.app.business.usermanagement.entity.AppUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

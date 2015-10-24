@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.fhws.app.presentation.frontcontroller.commands;
+package de.fhws.app.showcase.frontcontroller.commands;
 
-import de.fhws.app.presentation.frontcontroller.commands.ComplexCalculationCommand;
+import de.fhws.app.showcase.frontcontroller.commands.ComplexCalculationCommand;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;

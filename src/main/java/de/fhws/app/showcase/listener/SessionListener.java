@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.fhws.app.listener;
+package de.fhws.app.showcase.listener;
 
-import de.fhws.app.entity.AppUser;
+import de.fhws.app.business.usermanagement.entity.AppUser;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;

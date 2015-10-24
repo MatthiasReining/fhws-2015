@@ -1,4 +1,4 @@
-package de.fhws.app.presentation;
+package de.fhws.app.showcase.servlets;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,13 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"second"})
-public class SecondServlet extends HttpServlet {
+@WebServlet("redirect")
+public class RedirectServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("bin da :-)");
-        resp.getWriter().println("Hallo FHWS");
+        //resp.sendRedirect("/FirstServlet"); //<-- will not work. '/' refers to URL root
+        resp.sendRedirect("FirstServlet");
+        
+        //resp.sendRedirect("http://www.google.de");
     }
     
     
