@@ -8,6 +8,11 @@ public class SampleController {
 
     private String data1;
     private String data2;
+    
+    public void commit() {
+        System.out.println(data1);
+        System.out.println(data2);
+    }
 
     public String getData1() {
         return data1;

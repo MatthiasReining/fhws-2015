@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="./WEB-INF/templates/template.xhtml">
 
@@ -14,9 +15,32 @@
 
 
             <h:form>
-                
+
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="data1"/>
+                    <h:inputText 
+                        id="data1"
+                        label="Data 1"
+                        value="#{sampleController.data1}">
+                        <f:validateRequired/>
+                        <f:validateLength
+                            minimum="3"
+                            maximum="10"
+                            />
+                    </h:inputText>
+                    <h:message for="data1"/>
+
+                    <h:outputLabel value="data2"/>                    
+                    <h:inputText 
+                        id="data2"
+                        value="#{sampleController.data2}">
+                    </h:inputText>
+                    <h:message for="data2"/>
+
+                </h:panelGrid>
+                <h:commandButton action="#{sampleController.commit}" value="commit"/>
             </h:form>
-            
+
         </ui:define>
 
 
