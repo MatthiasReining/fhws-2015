@@ -13,23 +13,32 @@
 
         <ui:define name="content">
 
-
-            <h:dataTable value="#{userListController.all}" var="user">
-                <h:column>
-                    <f:facet name="header">Name</f:facet>
-                        #{user.firstName} #{user.lastName}
-                </h:column>   
-                <h:column>
-                    <f:facet name="header">E-Mail</f:facet>
-                        #{user.email}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Last Login</f:facet>
-                        #{user.lastLogin}
-                </h:column>
+            <h:form>
 
 
-            </h:dataTable>
+                <h:dataTable value="#{userListController.all}" var="user">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                            #{user.firstName} #{user.lastName}
+                    </h:column>   
+                    <h:column>
+                        <f:facet name="header">E-Mail</f:facet>
+                            #{user.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Last Login</f:facet>
+                            #{user.lastLogin}
+                    </h:column>
+
+                    <h:column>
+
+                        <h:commandLink action="#{userController.load(user)}" value="edit"/>
+                    </h:column>
+
+
+                </h:dataTable>
+
+            </h:form>
 
 
             <hr/>
