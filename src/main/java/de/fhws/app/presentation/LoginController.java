@@ -1,12 +1,14 @@
 package de.fhws.app.presentation;
 
 import de.fhws.app.business.usermanagement.boundary.UserManagementService;
-import de.fhws.app.business.usermanagement.controller.DBMock;
 import de.fhws.app.business.usermanagement.entity.AppUser;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 @ManagedBean
 public class LoginController {
@@ -16,6 +18,10 @@ public class LoginController {
     
     final UserManagementService userManagementService = new UserManagementService();
     
+    //TODO: search for correct solution
+    //@ManagedProperty(value="#{localeController}")
+    //LocaleController localeController;
+    
     public String login() {
         
         System.out.println(email);
@@ -23,12 +29,16 @@ public class LoginController {
         
         AppUser user = userManagementService.getUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
+            user.setLastLogin(new Date());
             //TODO pw passt nicht
             return "user-list.xhtml?faces-redirect=true";
         }
         
         
-        FacesMessage fm = new FacesMessage("Login fehlgeschlagen");
+        //FIXME please use language form localeController
+        Locale locale = Locale.ENGLISH;
+        String msg = ResourceBundle.getBundle("messages", locale).getString("loginFailed");
+        FacesMessage fm = new FacesMessage(msg);
         FacesContext.getCurrentInstance().addMessage(null, fm);
         return "login";
     }

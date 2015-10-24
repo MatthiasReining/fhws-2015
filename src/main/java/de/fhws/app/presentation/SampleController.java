@@ -1,6 +1,6 @@
 package de.fhws.app.presentation;
 
-import de.fhws.app.business.usermanagement.entity.AppUser;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
@@ -8,7 +8,12 @@ public class SampleController {
 
     private String data1;
     private String data2;
-    
+
+    @PostConstruct
+    void init() {
+        data1 = "blub blub";
+    }
+
     public void commit() {
         System.out.println(data1);
         System.out.println(data2);
