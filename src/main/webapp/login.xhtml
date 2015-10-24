@@ -11,11 +11,19 @@
             Hello from Facelets<br/>
 
             <h:form>
-                
-                
-                Email <h:inputText value="#{loginController.email}"/> <br/>
-                Password <h:inputSecret value="#{loginController.password}"/> <br/>
-                <br/>
+
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="E-Mail"/>
+                    <h:inputText value="#{loginController.email}"/>
+
+                    <h:outputLabel value="Pa&szlig;wort"/>
+                    <h:inputText value="#{loginController.password}"/>
+
+                </h:panelGrid>
+                <span style="color: red">
+                    <h:messages/>
+                </span>
                 <h:commandButton value="login" action="#{loginController.login}"/>
             </h:form>
 

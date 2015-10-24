@@ -3,7 +3,9 @@ package de.fhws.app.presentation;
 import de.fhws.app.business.usermanagement.boundary.UserManagementService;
 import de.fhws.app.business.usermanagement.controller.DBMock;
 import de.fhws.app.business.usermanagement.entity.AppUser;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 @ManagedBean
@@ -25,6 +27,9 @@ public class LoginController {
             return "user-list.xhtml?faces-redirect=true";
         }
         
+        
+        FacesMessage fm = new FacesMessage("Login fehlgeschlagen");
+        FacesContext.getCurrentInstance().addMessage(null, fm);
         return "login";
     }
 
