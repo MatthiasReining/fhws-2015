@@ -27,3 +27,16 @@ Furthermore, the slides will be also present at Slideshare (I'll also publish th
 The source code is managed at GitHub ([https://github.com/mr678/fhws-2015](https://github.com/mr678/fhws-2015)).
 
 The source code demonstrate the possibilities of Java EE discussed during the course. The project contains not only nice and smart code based on the latest version of Java EE. Some parts of the code are only for a better understanding of why the latest version of Java EE is clean, thin and smart!
+
+**Infrastrucutre**
+
+The example application is published into the cloud. As cloud [Amazon EC2](https://aws.amazon.com/de/ec2/) is used managed by [bitnami](https://bitnami.com).
+
+(Jenkins)[https://jenkins-ci.org/] is used for build and deployments. Unfortunately, the image doesn't provide a preinstalled Jenkins server. Therefore, Jenkins is installed manually at the server. For installation the following guide is used: [https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu](https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu).
+
+	wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+	sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+	sudo apt-get update
+	sudo apt-get install jenkins
+
+The port is also changed to 8081. If you want direct access, without Apache HTTP server, you have to open also the port in the firewall (it's not recommend, but pragmatic in our case...). Thanks to Bitnami this can be done easily via the Bitnami Console.
