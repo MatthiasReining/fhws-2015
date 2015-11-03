@@ -1,4 +1,4 @@
-Full Stack for Business Applications
+Java EE - Full Stack for Business Applications
 ==============================================
 
 by [Matthias Reining](https://twitter.com/MatthiasReining) at FHWS (Hochschule für angewandte Wissenschaften Würzburg-Schweinfurt)
