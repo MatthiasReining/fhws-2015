@@ -21,11 +21,15 @@
     </dependencies>
     <build>
         <finalName>fhws-2015</finalName>
-          <plugins>
+        <plugins>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.0.2.Final</version>
+                <configuration>  
+                    <username>admin</username>  
+                    <password>admin</password>  
+                </configuration>  
             </plugin>
         </plugins>
     </build>
