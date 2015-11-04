@@ -31,7 +31,7 @@ public class FrontControllerServlet extends HttpServlet {
             String nextPage = cmd.execute(req, resp);
             
             System.out.println("next Page: " + nextPage);
-            //Alternativer Aufruf der Methode über Reflection.
+            //Alternativer Aufruf der Methode Ã¼ber Reflection.
             //Method m = cmdClazz.getMethod("execute", HttpServletRequest.class, HttpServletResponse.class);
             //m.invoke(obj, req, resp);
             

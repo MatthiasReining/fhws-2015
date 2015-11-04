@@ -23,7 +23,7 @@ public class BlockFFFilter implements Filter {
         String userAgent = ((HttpServletRequest)request).getHeader("User-Agent");
         
         if (userAgent.contains("Firefox")) {
-            response.getWriter().println("Firefox mögen wir nicht!");
+            response.getWriter().println("Firefox mÃ¶gen wir nicht!");
             return;
         }
         

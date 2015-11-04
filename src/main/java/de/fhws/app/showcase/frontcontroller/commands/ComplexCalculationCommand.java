@@ -24,7 +24,7 @@ public class ComplexCalculationCommand implements Command {
     }
 
     protected int complexCalculation(int in) {
-        //hohe Code Complexit‰t
+        //hohe Code Complexit√§t
         long x = System.currentTimeMillis();
         int result = 0;
         if ((in < 5) || (x+4>System.currentTimeMillis())) {
