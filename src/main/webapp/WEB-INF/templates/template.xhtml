@@ -6,31 +6,47 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <title>User App</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
+
+
     </h:head>
 
     <h:body>
         <f:view locale="#{localeController.lang}">
 
-            <div id="top">
-                <ui:insert name="top">Top</ui:insert>
-            </div>
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <ui:insert name="top">Top</ui:insert>                        
+                    </div>
 
-            <div id="content" class="center_content">
+                </div>
+            </nav>
+
+
+            <div class="container">
                 <ui:insert name="content">Content</ui:insert>
             </div>
 
-            <div id="bottom">
-                
-                <ui:include src="/change-language.xhtml" />
-                <br/>
-                
-                <ui:insert name="bottom">(c) 2015 by FHWS</ui:insert>
 
-            </div>
+
+            <nav class="navbar navbar-default navbar-fixed-bottom">
+                <div class="container">
+                    <ui:include src="/change-language.xhtml" />
+                    <ui:insert name="bottom">(c) 2015 by FHWS</ui:insert>
+                </div>
+            </nav>
+
+
 
         </f:view>
     </h:body>

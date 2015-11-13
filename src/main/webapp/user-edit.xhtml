@@ -1,10 +1,9 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./WEB-INF/templates/template.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
-
-
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"                
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./WEB-INF/templates/template.xhtml">
 
     <ui:define name="top">
         Edit User #{userController.user.firstName}
@@ -12,44 +11,81 @@
 
     <ui:define name="content">
 
-        <h:form>
-            <h:panelGrid columns="3">
+        <h:form styleClass="form-horizontal">
 
-                <h:outputLabel value="#{msg.userFirstName}"/>                    
-                <h:inputText 
-                    id="firstName"
-                    label="#{msg.userFirstName}"
-                    value="#{userController.user.firstName}">
-                </h:inputText>
-                <h:message for="firstName"/>
+            <div class="form-group">
+                <h:outputLabel value="#{msg.userFirstName}"
+                               styleClass="col-sm-2 control-label"/>
+                <div class="col-sm-10">
+                    <h:inputText 
+                        id="firstName"
+                        styleClass="form-control"
+                        label="#{msg.userFirstName}"
+                        value="#{userController.user.firstName}">
+                    </h:inputText>
+                    <h:message for="firstName"/>
+                </div>
+            </div>
 
-
-                <h:outputLabel value="#{msg.userLastName}"/>                    
-                <h:inputText 
-                    id="lastName"
-                    label="#{msg.userLastName}"
-                    value="#{userController.user.lastName}">
-                </h:inputText>
-                <h:message for="lastName"/>
-
-
-                <h:outputLabel value="#{msg.userEmail}"/>                    
-                <h:inputText 
-                    id="userEmail"
-                    label="#{msg.userEmail}"
-                    value="#{userController.user.email}">
-                </h:inputText>
-                <h:message for="userEmail"/>
-
-                <h:outputLabel value="#{msg.userLastLogin}"/>                    
-                <h:outputText value="#{userController.user.lastLogin}" />
-
-
-
-
-            </h:panelGrid>
+            <div class="form-group">
+                <h:outputLabel value="#{msg.userLastName}"
+                               styleClass="col-sm-2 control-label"/>  
+                <div class="col-sm-10">
+                    <h:inputText 
+                        id="lastName"
+                        label="#{msg.userLastName}"
+                        styleClass="form-control"
+                        value="#{userController.user.lastName}">
+                    </h:inputText>
+                    <h:message for="lastName"/>
+                </div>
+            </div>
             
-            <h:commandButton value="save" action="#{userController.save()}" />
+            <div class="form-group">
+                <h:outputLabel value="#{msg.userZip}"
+                               styleClass="col-sm-2 control-label"/>  
+                <div class="col-sm-10">
+                    <h:inputText 
+                        id="zip"
+                        label="#{msg.userZip}"
+                        styleClass="form-control"
+                        value="#{userController.user.zip}">
+                    </h:inputText>
+                    <h:message for="zip"/>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <h:outputLabel value="#{msg.userEmail}"
+                               styleClass="col-sm-2 control-label"/>       
+                <div class="col-sm-10">
+                    <h:inputText 
+                        id="userEmail"
+                        label="#{msg.userEmail}"
+                        value="#{userController.user.email}"
+                        styleClass="form-control">
+                    </h:inputText>
+                    <h:message for="userEmail"/>
+                </div>
+            </div>
+
+            <div class="form-group">                
+                <h:outputLabel value="#{msg.userLastLogin}" 
+                               styleClass="col-sm-2 control-label"/>  
+                <div class="col-sm-10">
+                    <p class="form-control-static">
+                        <h:outputText value="#{userController.user.lastLogin}" />
+                    </p>
+                </div>
+            </div>
+
+            <br/><br/>
+
+            <h:commandButton value="save" 
+                             styleClass="btn btn-primary"
+                             action="#{userController.save()}" />
 
         </h:form>
     </ui:define>

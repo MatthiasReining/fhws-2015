@@ -15,8 +15,9 @@
 
             <h:form>
 
-
-                <h:dataTable value="#{userListController.all}" var="user">
+                <h:dataTable value="#{userListController.all}" 
+                             styleClass="table table-striped "
+                             var="user">
                     <h:column>
                         <f:facet name="header">Name</f:facet>
                             #{user.firstName} #{user.lastName}
@@ -40,20 +41,6 @@
 
             </h:form>
 
-
-            <hr/>
-            Alternative Darstellung<br/>
-
-            <table>
-                <ui:repeat value="#{userListController.all}" var="user">
-
-                    <tr>
-                        <td>#{user.firstName} #{user.firstName}</td>
-                        <td>#{user.email}</td>
-                        <td>#{user.lastLogin}</td>
-                    </tr>
-                </ui:repeat>
-            </table>
         </ui:define>
 
     </ui:composition>

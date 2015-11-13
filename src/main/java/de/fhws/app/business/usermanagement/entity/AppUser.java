@@ -5,7 +5,6 @@
  */
 package de.fhws.app.business.usermanagement.entity;
 
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,7 +12,7 @@ import java.util.Date;
  *
  * @author Matthias Reining
  */
-public class AppUser implements Serializable{
+public class AppUser implements Serializable {
 
     private String email;
     private String password;
@@ -21,7 +20,8 @@ public class AppUser implements Serializable{
     private Date created;
     private String firstName;
     private String lastName;
-    
+    private String zip;
+
     public String getEmail() {
         return email;
     }
@@ -68,6 +68,14 @@ public class AppUser implements Serializable{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
 }
