@@ -15,10 +15,17 @@
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
 
-        <h:outputStylesheet name="./css/signin.css"/>
+        <!-- 
+            <h:outputStylesheet name="./css/signin.css" /> 
+            funktioniert nicht direkt auf AppServer in der Cloud,
+            da "wildfly" im path steht        
+        -->
+        
+        
+        <link rel="stylesheet" href="resources/css/signin.css"/>
+        
+        
 
-        <!-- Custom styles for this template -->
-        <link href="signin.css" rel="stylesheet"></link>
     </h:head>
     <h:body>
         <f:view locale="#{localeController.lang}">
