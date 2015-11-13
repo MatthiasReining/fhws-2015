@@ -21,6 +21,7 @@ public class AppUser implements Serializable {
     private String firstName;
     private String lastName;
     private String zip;
+    private String city;
 
     public String getEmail() {
         return email;
@@ -76,6 +77,14 @@ public class AppUser implements Serializable {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
 }
