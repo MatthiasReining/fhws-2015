@@ -3,37 +3,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Signin into our FHWS App</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
+
+        <h:outputStylesheet name="./css/signin.css"/>
+
+        <!-- Custom styles for this template -->
+        <link href="signin.css" rel="stylesheet"></link>
     </h:head>
     <h:body>
         <f:view locale="#{localeController.lang}">
-            
-            #{msg.loginWelcome}
-            <br/>
 
-            <h:form>
 
-                <h:panelGrid columns="2">
 
-                    <h:outputLabel value="#{msg.loginEmail}"/>
-                    <h:inputText value="#{loginController.email}"/>
+            <div class="container">
 
-                    <h:outputLabel value="#{msg.loginPassword}"/>
-                    <h:inputText value="#{loginController.password}"/>
+                <ui:include src="/change-language.xhtml" />
 
-                </h:panelGrid>
-                <span style="color: red">
-                    <h:messages/>
-                </span>
-                <h:commandButton value="#{msg.loginButtonLogin}" action="#{loginController.login}"/>
-            </h:form>
-            
-            
-            <hr/>
-            <ui:include src="/change-language.xhtml" />
+                <h:form styleClass="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
 
+                    <h:outputLabel for="inputEmail" 
+                                   value="#{msg.loginEmail}" 
+                                   styleClass="sr-only"/>
+                    <h:inputText id="inputEmail" 
+                                 p:placeholder="#{msg.loginEmail}"                                         
+                                 value="#{loginController.email}"
+                                 required="true"
+                                 p:autofocus="true"
+                                 styleClass="form-control" />
+
+                    <h:outputLabel 
+                        value="#{msg.loginPassword}"
+                        for="inputPassword"
+                        styleClass="sr-only"/>
+
+                    <h:inputSecret id="inputPassword"
+                                   p:placeholder="#{msg.loginPassword}"    
+                                   value="#{loginController.password}"                                                                      
+                                   required="true"                        
+                                   styleClass="form-control"
+                                   />
+
+                    <span style="color: red">
+                        <h:messages/>
+                    </span>
+                    <h:commandButton 
+                        value="#{msg.loginButtonLogin}" 
+                        action="#{loginController.login}"
+                        styleClass="btn btn-lg btn-primary btn-block"
+                        />
+                </h:form>
+
+            </div>
         </f:view>
     </h:body>
 </html>
