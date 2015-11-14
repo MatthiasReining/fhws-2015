@@ -5,68 +5,57 @@ import de.fhws.app.business.usermanagement.entity.Statistics;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 
+@Stateless
 public class UserManagementService {
 
+    @PersistenceContext
     EntityManager em;
-    UserTransaction ut;
-
-    public UserManagementService(EntityManager em, UserTransaction ut) {
-        this.em = em;
-        this.ut = ut;
-    }
 
     public AppUser login(String email, String password) {
-        try {
-            AppUser user = getUserByEmail(email);
-            if (user == null)
-                return null;
+        AppUser user = getUserByEmail(email);
+        if (user == null)
+            return null;
 
-            ut.begin();
-            if (!user.getPassword().equals(password)) {
-                Integer loginFailed = user.getLoginFailed();
-                if (loginFailed == null)
-                    loginFailed = 0;
-                loginFailed++;
-                user.setLoginFailed(loginFailed);
-
-                em.merge(user);
-                ut.commit();
-                return null;
-            }
-
-            user.setLastLogin(new Date());
-            user.setLoginFailed(0);
-
-            Statistics s = new Statistics();
-            s.setAppUser(user);
-            s.setEvent("login");
-            s.setEventTime(new Date());
-
-            List<Statistics> list = user.getStatistics();
-            if (list == null) {
-                list = new ArrayList<>();
-                list.add(s);
-                user.setStatistics(list);
-            } else
-                user.getStatistics().add(s);
+        if (!user.getPassword().equals(password)) {
+            Integer loginFailed = user.getLoginFailed();
+            if (loginFailed == null)
+                loginFailed = 0;
+            loginFailed++;
+            user.setLoginFailed(loginFailed);
 
             em.merge(user);
-            ut.commit();
-
-            return user;
-
-        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-            throw new RuntimeException(ex);
+            return null;
         }
+
+        user.setLastLogin(new Date());
+        user.setLoginFailed(0);
+
+        Statistics s = new Statistics();
+        s.setAppUser(user);
+        s.setEvent("login");
+        s.setEventTime(new Date());
+
+        List<Statistics> list = user.getStatistics();
+        if (list == null) {
+            list = new ArrayList<>();
+            list.add(s);
+            user.setStatistics(list);
+        } else
+            user.getStatistics().add(s);
+
+        em.merge(user);
+
+        return user;
 
     }
 
@@ -89,23 +78,10 @@ public class UserManagementService {
 
     public List<AppUser> getAllUsers() {
         List<AppUser> result = em.createNamedQuery(AppUser.findAll).getResultList();
-
         return result;
     }
 
     public AppUser save(AppUser appUser) {
-
-        try {
-            ut.begin();
-
-            appUser = em.merge(appUser);
-
-            ut.commit();
-
-            return appUser;
-        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-            throw new RuntimeException(ex);
-        }
-
+        return em.merge(appUser);
     }
 }

@@ -2,41 +2,22 @@ package de.fhws.app.presentation;
 
 import de.fhws.app.business.usermanagement.boundary.UserManagementService;
 import de.fhws.app.business.usermanagement.entity.AppUser;
-import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
 
 @ManagedBean
 public class LoginController {
 
-    @PersistenceContext
-    EntityManager em;
-
-    @Resource
-    UserTransaction ut;
-
     private String email;
     private String password;
 
+    @EJB
     UserManagementService userManagementService;
 
-    @PostConstruct
-    public void init() {
-        userManagementService = new UserManagementService(em, ut);
-    }
-
-    //TODO: search for correct solution
-    //@ManagedProperty(value="#{localeController}")
-    //LocaleController localeController;
     public String login() {
 
         System.out.println(email);

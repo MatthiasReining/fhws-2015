@@ -5,6 +5,7 @@ import de.fhws.app.business.usermanagement.boundary.UserManagementService;
 import de.fhws.app.business.usermanagement.entity.AppUser;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
@@ -19,18 +20,8 @@ public class UserController {
 
     AddressService addressService = new AddressService();
 
-    @PersistenceContext
-    EntityManager em;
-
-    @Resource
-    UserTransaction ut;
-
+    @EJB
     UserManagementService userManagementService;
-
-    @PostConstruct
-    public void init() {
-        userManagementService = new UserManagementService(em, ut);
-    }
 
     public String load(AppUser user) {
         this.user = user;
