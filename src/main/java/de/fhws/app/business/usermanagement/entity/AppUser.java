@@ -8,14 +8,34 @@ package de.fhws.app.business.usermanagement.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+@NamedQueries({
+    @NamedQuery(name = AppUser.findAll, query = "SELECT a FROM AppUser a"),
+    @NamedQuery(name = AppUser.findByEMail, query = "SELECT a FROM AppUser a WHERE a.email = :" + AppUser.paramEMail)
+})
 public class AppUser implements Serializable {
 
+    public static final String findAll = "de.fhws.app.business.usermanagement.entity.findAll";
+    public static final String findByEMail = "de.fhws.app.business.usermanagement.entity.findByEmail";
+    public static final String paramEMail = "email";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String email;
     private String password;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     private String firstName;
     private String lastName;

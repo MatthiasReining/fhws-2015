@@ -5,36 +5,50 @@ import de.fhws.app.business.usermanagement.entity.AppUser;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 
 @ManagedBean
 public class LoginController {
 
+    @PersistenceContext
+    EntityManager em;
+
+    @Resource
+    UserTransaction ut;
+
     private String email;
     private String password;
-    
-    final UserManagementService userManagementService = new UserManagementService();
-    
+
+    UserManagementService userManagementService;
+
+    @PostConstruct
+    public void init() {
+        userManagementService = new UserManagementService(em, ut);
+    }
+
     //TODO: search for correct solution
     //@ManagedProperty(value="#{localeController}")
     //LocaleController localeController;
-    
     public String login() {
-        
+
         System.out.println(email);
         System.out.println(password);
-        
+
         AppUser user = userManagementService.getUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             user.setLastLogin(new Date());
             //TODO pw passt nicht
             return "user-list.xhtml?faces-redirect=true";
         }
-        
-        
+
         //FIXME please use language form localeController
         Locale locale = Locale.ENGLISH;
         String msg = ResourceBundle.getBundle("messages", locale).getString("loginFailed");
@@ -59,5 +73,4 @@ public class LoginController {
         this.password = password;
     }
 
-    
 }

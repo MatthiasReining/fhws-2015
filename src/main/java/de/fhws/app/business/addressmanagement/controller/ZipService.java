@@ -42,12 +42,14 @@ public class ZipService {
             sslContext.init(null, trustManagerArray, null);
 
             //?finda=streets&plz_plz=97491&lang=de_DE
-            WebTarget target = ClientBuilder.newBuilder().sslContext(sslContext).build()
+           Response postResponse = ClientBuilder.newBuilder().sslContext(sslContext).build()
                     .target(deutschePostUrl)
                     .queryParam("finda", "city")
                     .queryParam("lang", "de_DE")
-                    .queryParam("city", zip);
-            Response postResponse = target.request(MediaType.TEXT_PLAIN).post(null, Response.class);
+                    .queryParam("city", zip)
+                    .request(MediaType.TEXT_PLAIN)
+                    .post(null, Response.class);
+
 
             if (postResponse.getStatus() != Response.Status.OK.getStatusCode()) {
                 throw new RuntimeException(postResponse.readEntity(String.class));

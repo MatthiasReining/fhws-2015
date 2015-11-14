@@ -40,12 +40,12 @@ public class JPAServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String message = req.getParameter("message");
-        
+
         if (req.getParameter("select").equals("true")) {
-            
+
             LogInfo li = em.find(LogInfo.class, 2l);
-            
-            resp.getWriter().println(li.getId() + " - " + li.getMessage() + " - " +li.getTs());
+
+            resp.getWriter().println(li.getId() + " - " + li.getMessage() + " - " + li.getTs());
             return;
         }
 
@@ -54,12 +54,12 @@ public class JPAServlet extends HttpServlet {
         li.setTs(new Date());
         try {
             ut.begin();
-            
+
             em.persist(li);
 
             ut.commit();
-        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
-            Logger.getLogger(JPAServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotSupportedException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException ex) {
+            throw new RuntimeException(ex);
         }
 
     }
