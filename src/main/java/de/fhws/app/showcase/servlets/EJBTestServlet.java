@@ -5,31 +5,33 @@
  */
 package de.fhws.app.showcase.servlets;
 
-import de.fhws.app.business.usermanagement.entity.AppUser;
-import de.fhws.app.business.usermanagement.entity.Statistics;
+import de.fhws.app.showcase.ejb.CalcService;
+import de.fhws.app.showcase.ejb.CalculationBeanRemote;
 import java.io.IOException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("statistics")
-public class StatisticsServlet  extends HttpServlet{
+@WebServlet("ejb")
+public class EJBTestServlet extends HttpServlet {
 
-    @PersistenceContext
-    EntityManager em;
+    @EJB
+    CalcService calcService;
+    
+    @EJB
+    CalculationBeanRemote cbr;
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-        //example for bidirectional
-        Statistics s = em.find(Statistics.class, 5l);
+        resp.getWriter().println( calcService.calculation() );
         
-        AppUser user = s.getAppUser();
-        resp.getWriter().println(user.getFirstName());
+        resp.getWriter().println( cbr.calculation(5));
     }
     
+    
+
 }

@@ -28,6 +28,14 @@
         </dependency>  
         
         
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <type>pom</type>
+            <version>8.2.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+        
         
     </dependencies>
     <build>

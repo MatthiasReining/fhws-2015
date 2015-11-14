@@ -5,11 +5,8 @@
  */
 package de.fhws.app.business.usermanagement.entity;
 
-import com.sun.jndi.toolkit.dir.SearchFilter;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
-import javax.ejb.Timeout;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

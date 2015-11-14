@@ -8,8 +8,8 @@
             <property name="javax.persistence.sql-load-script-source" value="db-init.sql"/>
             <property name="showSql" value="true"/>            
             <property name="hibernate.show_sql" value = "true" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             
-
         </properties>
     </persistence-unit>
 </persistence>
