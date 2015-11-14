@@ -42,12 +42,9 @@ public class LoginController {
         System.out.println(email);
         System.out.println(password);
 
-        AppUser user = userManagementService.getUserByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
-            user.setLastLogin(new Date());
-            //TODO pw passt nicht
+        AppUser user = userManagementService.login(email, password);
+        if (user != null)
             return "user-list.xhtml?faces-redirect=true";
-        }
 
         //FIXME please use language form localeController
         Locale locale = Locale.ENGLISH;

@@ -28,6 +28,17 @@ public class Statistics implements Serializable {
     private String event;
 
     
+    @ManyToOne
+    private AppUser appUser;
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+    
     
     
     public long getId() {

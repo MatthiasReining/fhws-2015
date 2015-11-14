@@ -1,13 +1,10 @@
 package de.fhws.app.business.usermanagement.boundary;
 
-import de.fhws.app.business.logmanager.entity.LogInfo;
-import de.fhws.app.business.usermanagement.controller.DBMock;
 import de.fhws.app.business.usermanagement.entity.AppUser;
-import java.util.HashMap;
+import de.fhws.app.business.usermanagement.entity.Statistics;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.transaction.HeuristicMixedException;
@@ -25,6 +22,52 @@ public class UserManagementService {
     public UserManagementService(EntityManager em, UserTransaction ut) {
         this.em = em;
         this.ut = ut;
+    }
+
+    public AppUser login(String email, String password) {
+        try {
+            AppUser user = getUserByEmail(email);
+            if (user == null)
+                return null;
+
+            ut.begin();
+            if (!user.getPassword().equals(password)) {
+                Integer loginFailed = user.getLoginFailed();
+                if (loginFailed == null)
+                    loginFailed = 0;
+                loginFailed++;
+                user.setLoginFailed(loginFailed);
+
+                em.merge(user);
+                ut.commit();
+                return null;
+            }
+
+            user.setLastLogin(new Date());
+            user.setLoginFailed(0);
+
+            Statistics s = new Statistics();
+            s.setAppUser(user);
+            s.setEvent("login");
+            s.setEventTime(new Date());
+
+            List<Statistics> list = user.getStatistics();
+            if (list == null) {
+                list = new ArrayList<>();
+                list.add(s);
+                user.setStatistics(list);
+            } else
+                user.getStatistics().add(s);
+
+            em.merge(user);
+            ut.commit();
+
+            return user;
+
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            throw new RuntimeException(ex);
+        }
+
     }
 
     private int wird_der_counter_zurueck_gerollt = 0;

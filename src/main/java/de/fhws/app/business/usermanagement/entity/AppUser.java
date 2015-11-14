@@ -8,7 +8,9 @@ package de.fhws.app.business.usermanagement.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,16 +39,16 @@ public class AppUser implements Serializable {
     private String email;
     private String password;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastLogin;
+    private Date lastLogin;    
+    private Integer loginFailed;
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     private String firstName;
     private String lastName;
     private String zip;
     private String city;
-    
-    @OneToMany
-    @JoinColumn(name = "appuser_id")
+
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Statistics> statistics;
 
     public List<Statistics> getStatistics() {
@@ -57,8 +59,13 @@ public class AppUser implements Serializable {
         this.statistics = statistics;
     }
 
-    
-    
+    public Integer getLoginFailed() {
+        return loginFailed;
+    }
+
+    public void setLoginFailed(Integer loginFailed) {
+        this.loginFailed = loginFailed;
+    }
 
     public long getId() {
         return id;
