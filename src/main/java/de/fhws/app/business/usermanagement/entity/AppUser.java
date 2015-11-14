@@ -7,12 +7,15 @@ package de.fhws.app.business.usermanagement.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -41,6 +44,21 @@ public class AppUser implements Serializable {
     private String lastName;
     private String zip;
     private String city;
+    
+    @OneToMany
+    @JoinColumn(name = "appuser_id")
+    private List<Statistics> statistics;
+
+    public List<Statistics> getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(List<Statistics> statistics) {
+        this.statistics = statistics;
+    }
+
+    
+    
 
     public long getId() {
         return id;

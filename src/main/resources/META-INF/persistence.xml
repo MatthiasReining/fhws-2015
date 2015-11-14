@@ -4,8 +4,9 @@
         <jta-data-source>java:jboss/datasources/FHWS-DS</jta-data-source>
        
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="none" />
-            <property name="showSql" value="true"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+            <property name="showSql" value="true"/>            
+            <property name="hibernate.show_sql" value = "true" />
             
 
         </properties>
