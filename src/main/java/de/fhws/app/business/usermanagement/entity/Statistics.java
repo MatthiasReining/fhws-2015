@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -24,9 +25,13 @@ public class Statistics implements Serializable {
     private Date eventTime;
     private String event;
 
-    
     @ManyToOne
     private AppUser appUser;
+
+    @PrePersist
+    public void prePersist() {
+        eventTime = new Date();
+    }
 
     public AppUser getAppUser() {
         return appUser;
@@ -35,9 +40,7 @@ public class Statistics implements Serializable {
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
     }
-    
-    
-    
+
     public long getId() {
         return id;
     }
