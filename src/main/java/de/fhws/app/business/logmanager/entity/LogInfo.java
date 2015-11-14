@@ -7,14 +7,20 @@ package de.fhws.app.business.logmanager.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-/**
- *
- * @author Matthias Reining
- */
+@Entity
 public class LogInfo implements Serializable {
 
+    @Id
+    @GeneratedValue
     private long id;
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ts;
     private String message;
 

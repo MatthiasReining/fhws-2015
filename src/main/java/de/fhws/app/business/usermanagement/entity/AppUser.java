@@ -7,12 +7,11 @@ package de.fhws.app.business.usermanagement.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
 
-/**
- *
- * @author Matthias Reining
- */
 public class AppUser implements Serializable {
+
+    private long id;
 
     private String email;
     private String password;
@@ -22,6 +21,14 @@ public class AppUser implements Serializable {
     private String lastName;
     private String zip;
     private String city;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
