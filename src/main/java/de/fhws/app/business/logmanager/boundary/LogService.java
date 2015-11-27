@@ -6,13 +6,6 @@
 package de.fhws.app.business.logmanager.boundary;
 
 import de.fhws.app.business.logmanager.entity.LogInfo;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -21,10 +14,10 @@ import java.util.logging.Logger;
 import javax.ejb.AsyncResult;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.sql.DataSource;
 
 /**
  *
@@ -35,6 +28,14 @@ public class LogService {
 
     @PersistenceContext
     EntityManager em;
+
+    @Inject
+    LogService ls;
+
+    public void manageLogEventsAtDatabase(@Observes @LogEvent String message) {
+        ls.log(message);
+
+    }
 
     @Asynchronous
     public void log(String message) {
@@ -63,13 +64,13 @@ public class LogService {
         List<LogInfo> list = em.createNamedQuery(LogInfo.findAll, LogInfo.class).getResultList();
 
         System.out.println(list.size());
-         //simulate heavy work
+        //simulate heavy work
         try {
             Thread.sleep(3000);
         } catch (InterruptedException ex) {
             Logger.getLogger(LogService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return new AsyncResult(list);
     }
 

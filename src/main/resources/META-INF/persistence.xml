@@ -6,8 +6,8 @@
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="none" />
             <property name="javax.persistence.sql-load-script-source" value="db-init.sql"/>
-            <property name="showSql" value="true"/>            
-            <property name="hibernate.show_sql" value = "true" />
+            <!--<property name="showSql" value="true"/>            
+            <property name="hibernate.show_sql" value = "true" /> -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             
         </properties>
