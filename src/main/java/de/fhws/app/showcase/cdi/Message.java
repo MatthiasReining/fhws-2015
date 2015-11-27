@@ -6,16 +6,14 @@
 package de.fhws.app.showcase.cdi;
 
 import java.util.Date;
-import javax.enterprise.context.Dependent;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author Matthias Reining
  */
+@Named
 public class Message {
 
     private String message = "Hello World!";

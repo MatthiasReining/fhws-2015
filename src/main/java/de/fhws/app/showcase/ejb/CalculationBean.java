@@ -8,11 +8,13 @@ package de.fhws.app.showcase.ejb;
 import de.fhws.app.business.usermanagement.entity.Statistics;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.jws.WebService;
 
 @Stateless
 @Remote(CalculationBeanRemote.class)
 @WebService()
+@Named
 public class CalculationBean implements CalculationBeanRemote {
 
     @Override
