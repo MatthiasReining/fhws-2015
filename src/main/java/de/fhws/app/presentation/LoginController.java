@@ -7,18 +7,29 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class LoginController implements Serializable{
+public class LoginController implements Serializable {
 
     private String email;
     private String password;
 
-    @EJB
+    private AppUser loggedInUser;
+
+    @Produces
+    @LoggedInUser
+    @Named
+    public AppUser loggedInUser() {
+        return loggedInUser;
+    }
+
+    @Inject
     UserManagementService userManagementService;
 
     public String login() {
@@ -27,8 +38,10 @@ public class LoginController implements Serializable{
         System.out.println(password);
 
         AppUser user = userManagementService.login(email, password);
-        if (user != null)
+        if (user != null) {
+            loggedInUser = user;
             return "user-list.xhtml?faces-redirect=true";
+        }
 
         //FIXME please use language form localeController
         Locale locale = Locale.ENGLISH;

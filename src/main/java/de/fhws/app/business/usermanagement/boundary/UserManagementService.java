@@ -2,11 +2,13 @@ package de.fhws.app.business.usermanagement.boundary;
 
 import de.fhws.app.business.usermanagement.entity.AppUser;
 import de.fhws.app.business.usermanagement.entity.Statistics;
+import de.fhws.app.presentation.LoggedInUser;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,10 @@ public class UserManagementService {
 
     @PersistenceContext
     EntityManager em;
+
+    @Inject
+    @LoggedInUser
+    AppUser loggedInUser;
 
     public AppUser login(String email, String password) {
         AppUser user = getUserByEmail(email);
@@ -78,6 +84,8 @@ public class UserManagementService {
     }
 
     public AppUser save(AppUser appUser) {
+        if (loggedInUser != null)
+            System.out.println("data saved by " + loggedInUser.getFirstName());
         return em.merge(appUser);
     }
 }
