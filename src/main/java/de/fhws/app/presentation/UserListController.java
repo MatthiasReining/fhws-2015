@@ -2,14 +2,15 @@ package de.fhws.app.presentation;
 
 import de.fhws.app.business.usermanagement.boundary.UserManagementService;
 import de.fhws.app.business.usermanagement.entity.AppUser;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
+import javax.enterprise.inject.Model;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@ManagedBean
-public class UserListController {
+@Model
+public class UserListController implements Serializable {
 
     @PersistenceContext
     EntityManager em;

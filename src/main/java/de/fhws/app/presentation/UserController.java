@@ -3,13 +3,14 @@ package de.fhws.app.presentation;
 import de.fhws.app.business.addressmanagement.boundary.AddressService;
 import de.fhws.app.business.usermanagement.boundary.UserManagementService;
 import de.fhws.app.business.usermanagement.entity.AppUser;
+import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class UserController {
+public class UserController implements Serializable {
 
     AppUser user = new AppUser();
 
@@ -22,7 +23,7 @@ public class UserController {
         this.user = user;
         return "user-edit";
     }
-    
+
     public String newUser() {
         this.user = new AppUser();
         return "user-edit";
