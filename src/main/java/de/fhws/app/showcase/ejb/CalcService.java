@@ -1,6 +1,7 @@
 package de.fhws.app.showcase.ejb;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

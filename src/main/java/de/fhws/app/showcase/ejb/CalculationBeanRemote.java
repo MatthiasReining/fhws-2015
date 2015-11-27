@@ -5,8 +5,12 @@
  */
 package de.fhws.app.showcase.ejb;
 
+import de.fhws.app.business.usermanagement.entity.Statistics;
+
 public interface CalculationBeanRemote {
 
     public int calculation(int in);
+
+    public int test(Statistics s);
 
 }
