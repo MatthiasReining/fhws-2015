@@ -15,96 +15,65 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.AsyncResult;
+import javax.ejb.Asynchronous;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 
 /**
  *
  * @author Matthias Reining
  */
+@Stateless
 public class LogService {
 
-    DataSource ds;
+    @PersistenceContext
+    EntityManager em;
 
-    public LogService(DataSource ds) {
-        this.ds = ds;
-    }
-
+    @Asynchronous
     public void log(String message) {
+
+        //simulate heavy work
+        System.out.println("im log service");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LogService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         LogInfo li = new LogInfo();
 
         li.setMessage(message);
         li.setTs(new Date());
 
-        //save(li);
+        em.persist(li);
+
+        System.out.println("ende log service");
     }
 
-    @Deprecated
-    void save(Object data) {
+    @Asynchronous
+    public Future<List<LogInfo>> findAllAsync() {
 
-            //save
-        //insert into loginfo ( id , message , ts ) values (1, 'blub', now());
-        String sql = "INSERT INTO " + data.getClass().getName() + "VALUES( ";
-        String sqlValues = "";
-        for (Method m : LogInfo.class.getMethods()) {
-            System.out.println(m.getName());
-            if (m.getName().startsWith("get")) {
+        List<LogInfo> list = em.createNamedQuery(LogInfo.findAll, LogInfo.class).getResultList();
 
-                String attr = m.getName().substring(3);
-
-                try {
-                    Object obj = m.invoke(data);
-                    //FIXME fertig stellen
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
+        System.out.println(list.size());
+         //simulate heavy work
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LogService.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-        /*Connection connection = ds.getConnection();
-
-         PreparedStatement ps = connection.prepareStatement("insert into loginfo ( id , message , ts ) values ( jdbc_seq.nextval, ?, ?)");
-
-         ps.setString(1, data.getMessage());
-         ps.setTimestamp(2, new java.sql.Timestamp(data.getTs().getTime()));
-
-         ps.execute();
-         */
-            //ds.getConnection().commit();
+        
+        return new AsyncResult(list);
     }
 
     public List<LogInfo> findAll() {
-        List<LogInfo> liList = new ArrayList<>();
-
-        try {
-            PreparedStatement ps = ds.getConnection().prepareCall("SELECT * FROM LOGINFO");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                LogInfo li = new LogInfo();
-
-                for (Method m : LogInfo.class.getMethods()) {
-                    System.out.println(m.getName());
-                    if (m.getName().startsWith("set")) {
-
-                        String attr = m.getName().substring(3);
-                        Object value = rs.getObject(attr);
-                        try {
-                            m.invoke(li, value);
-                        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    }
-                }
-                liList.add(li);
-            }
-
-            return liList;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-
+        return em.createNamedQuery(LogInfo.findAll, LogInfo.class).getResultList();
     }
-
 }
