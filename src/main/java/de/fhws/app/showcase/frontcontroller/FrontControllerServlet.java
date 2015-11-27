@@ -20,7 +20,7 @@ public class FrontControllerServlet extends HttpServlet {
         String pathInfo = req.getPathInfo();
         String clazzName = pathInfo.substring(1,2).toUpperCase() + pathInfo.substring(2) + "Command";
         
-        String fqn = "de.fhws.app.presentation.frontcontroller.commands." + clazzName;
+        String fqn = "de.fhws.app.showcase.frontcontroller.commands." + clazzName;
         System.out.println(fqn);
         
         try {

@@ -15,7 +15,7 @@ public class BatchJobExample {
         System.out.println("start batch job");
     }
 
-    @Schedule(second = "*/5", minute = "*", hour = "*")
+    //@Schedule(second = "*/5", minute = "*", hour = "*")
     public void runner() {
         System.out.println("mach was...");
     }
