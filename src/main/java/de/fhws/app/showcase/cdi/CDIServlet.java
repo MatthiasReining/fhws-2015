@@ -23,16 +23,25 @@ import javax.servlet.http.HttpServletResponse;
 public class CDIServlet extends HttpServlet {
 
     @Inject
-    Instance<Message> messageProducer;
+    @Special
+    Message message;
 
-    public Message getMessageObj() {
-        return messageProducer.get();
-    }
+    @Inject
+    String stringMessage;
+
+    @Inject
+    @Killer
+    String killerMessage;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String m = getMessageObj().getMessage();
+        String m = message.getMessage();
         resp.getWriter().println(m);
+        resp.getWriter().println("\n");
+        resp.getWriter().println(stringMessage);
+        resp.getWriter().println("\n");
+        resp.getWriter().println(killerMessage);
+
     }
 
 }

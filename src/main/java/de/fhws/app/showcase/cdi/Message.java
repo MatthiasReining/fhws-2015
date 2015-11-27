@@ -6,7 +6,10 @@
 package de.fhws.app.showcase.cdi;
 
 import java.util.Date;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 /**
@@ -14,16 +17,30 @@ import javax.inject.Inject;
  * @author Matthias Reining
  */
 public class Message {
-    
-    @Inject
-    Message2 m2;
 
-    private String message = "Hello World" + new Date();
+    private String message = "Hello World!";
+
+    @Produces
+    public String factory2() {
+        return "String message";
+    }
+
+    @Produces
+    @Killer
+    public String factory3() {
+        return "Killer Message!!!";
+    }
+
+    @Produces
+    @Special
+    public Message factory1() {
+        Message m = new Message();
+        m.message = "Hello World " + new Date();
+        return m;
+    }
 
     public String getMessage() {
-        String m2Text = m2.getMessage2();
-        System.out.println(m2Text);
-        return message + m2Text;
+        return message;
     }
 
     public void setMessage(String message) {
