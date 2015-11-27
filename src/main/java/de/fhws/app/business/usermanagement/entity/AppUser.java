@@ -20,6 +20,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @NamedQueries({
@@ -36,16 +41,24 @@ public class AppUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Pattern(regexp = "\\b[\\w._%+-]+@[\\w.-]+\\.[a-z]{2,}\\b", message = "keine gültige E-Mail")
     private String email;
+
     private String password;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastLogin;    
+    private Date lastLogin;
     private Integer loginFailed;
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+
+    @Size(min = 2, max = 255)
     private String firstName;
+    @Size(min = 2, max = 255)
     private String lastName;
+
+    @Digits(integer = 5, fraction = 0)
     private String zip;
+    @Size(min = 2, max = 255)
     private String city;
 
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

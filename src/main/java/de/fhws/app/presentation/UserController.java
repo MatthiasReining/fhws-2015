@@ -11,7 +11,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class UserController {
 
-    AppUser user;
+    AppUser user = new AppUser();
 
     AddressService addressService = new AddressService();
 
