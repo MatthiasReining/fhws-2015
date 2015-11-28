@@ -16,6 +16,9 @@ public class UserController implements Serializable {
 
     AddressService addressService = new AddressService();
 
+    private String oldPassword;
+    private String newPassword;
+
     @EJB
     UserManagementService userManagementService;
 
@@ -25,6 +28,8 @@ public class UserController implements Serializable {
     }
 
     public String newUser() {
+        oldPassword = "";
+        newPassword = "";
         this.user = new AppUser();
         return "user-edit";
     }
@@ -32,6 +37,21 @@ public class UserController implements Serializable {
     public String save() {
         userManagementService.save(user);
         return "user-list";
+    }
+
+    public String changePassword() {
+
+        System.out.println("old pw: " + oldPassword);
+        System.out.println("new pw: " + newPassword);
+
+        boolean changed = userManagementService.changePassword(user, oldPassword, newPassword);
+
+        oldPassword = "";
+        newPassword = "";
+        if (changed)
+            return "user-list";
+        else
+            return "user-edit";
     }
 
     public void loadCity() {
@@ -45,6 +65,22 @@ public class UserController implements Serializable {
 
     public void setUser(AppUser user) {
         this.user = user;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
 }

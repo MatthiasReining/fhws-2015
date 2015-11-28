@@ -1,5 +1,6 @@
 package de.fhws.app.business.usermanagement.boundary;
 
+import de.fhws.app.business.usermanagement.controller.PWManager;
 import de.fhws.app.business.usermanagement.entity.AppUser;
 import de.fhws.app.business.usermanagement.entity.Statistics;
 import de.fhws.app.presentation.LoggedInUser;
@@ -23,12 +24,15 @@ public class UserManagementService {
     @LoggedInUser
     AppUser loggedInUser;
 
+    @Inject
+    PWManager pwManager;
+
     public AppUser login(String email, String password) {
         AppUser user = getUserByEmail(email);
         if (user == null)
             return null;
 
-        if (!user.getPassword().equals(password)) {
+        if (!pwManager.checkPW(password, user.getPassword())) {
             Integer loginFailed = user.getLoginFailed();
             if (loginFailed == null)
                 loginFailed = 0;
@@ -87,5 +91,22 @@ public class UserManagementService {
         if (loggedInUser != null)
             System.out.println("data saved by " + loggedInUser.getFirstName());
         return em.merge(appUser);
+    }
+
+    public boolean changePassword(AppUser appUser, String oldPasswordClearText, String newPasswordClearText) {
+
+        if (appUser.getPassword() != null) {
+            if (!pwManager.checkPW(oldPasswordClearText, appUser.getPassword())) {
+                System.out.println("altes PW falsch");
+                return false;
+            }
+        }
+
+        String pwHash = pwManager.createPWHash(newPasswordClearText);
+        appUser.setPassword(pwHash);
+        System.out.println("neues PW gesetzt");
+
+        em.merge(appUser);
+        return true;
     }
 }
