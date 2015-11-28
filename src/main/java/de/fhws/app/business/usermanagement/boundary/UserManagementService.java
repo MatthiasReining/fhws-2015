@@ -87,6 +87,10 @@ public class UserManagementService {
         return result;
     }
 
+    public AppUser findUserById(long id) {
+        return em.find(AppUser.class, id);
+    }
+
     public AppUser save(AppUser appUser) {
         if (loggedInUser != null)
             System.out.println("data saved by " + loggedInUser.getFirstName());

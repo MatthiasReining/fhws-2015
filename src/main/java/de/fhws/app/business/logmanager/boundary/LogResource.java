@@ -9,16 +9,13 @@ import de.fhws.app.business.logmanager.entity.LogInfo;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -30,9 +27,6 @@ public class LogResource {
 
     @Inject
     LogService logService;
-
-    @PersistenceContext
-    EntityManager em;
 
     @GET
     public List<LogInfo> allLogs(@QueryParam("limit") @DefaultValue("100") int limit) {
@@ -46,10 +40,18 @@ public class LogResource {
     @GET
     @Path("{id}")
     public LogInfo getLogInfo(@PathParam("id") long id) {
+        return logService.getLogInfoById(id);
+    }
 
-        System.out.println("-> id: " + id);
-        LogInfo logInfo = em.find(LogInfo.class, id);
-        return logInfo;
+    @POST
+    public Response createLogInfo(LogInfo logInfo) {
+
+        logInfo = logService.createOrUpdate(logInfo);
+        
+        return Response
+                .status(Response.Status.CREATED)
+                .entity(logInfo)
+                .build();
     }
 
 }

@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Statistics implements Serializable {
@@ -33,6 +34,7 @@ public class Statistics implements Serializable {
         eventTime = new Date();
     }
 
+    @XmlTransient
     public AppUser getAppUser() {
         return appUser;
     }

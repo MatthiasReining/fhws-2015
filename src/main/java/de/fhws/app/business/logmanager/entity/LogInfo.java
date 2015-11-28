@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,6 +34,11 @@ public class LogInfo implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ts;
     private String message;
+
+    @PrePersist
+    public void prePersist() {
+        ts = new Date();
+    }
 
     public long getId() {
         return id;

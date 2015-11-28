@@ -37,6 +37,15 @@ public class LogService {
 
     }
 
+    public LogInfo getLogInfoById(long id) {
+        return em.find(LogInfo.class, id);
+    }
+
+    public LogInfo createOrUpdate(LogInfo logInfo) {
+        logInfo.setTs(new Date());
+        return em.merge(logInfo);
+    }
+
     @Asynchronous
     public void log(String message) {
 
@@ -51,9 +60,7 @@ public class LogService {
         LogInfo li = new LogInfo();
 
         li.setMessage(message);
-        li.setTs(new Date());
-
-        em.persist(li);
+        createOrUpdate(li);
 
         System.out.println("ende log service");
     }
