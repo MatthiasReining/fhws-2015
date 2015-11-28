@@ -27,11 +27,10 @@
                 <div class="container">
                     <div class="navbar-brand">
                         <ui:insert name="top">Top</ui:insert>
-                        &bnsp;&bnsp;&bnsp;&bnsp;&bnsp; logged in as: #{loggedInUser.firstName}
-                        
                     </div>
-
+                    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">#{loggedInUser.firstName}</a></p>
                 </div>
+
             </nav>
 
 
@@ -43,8 +42,12 @@
 
             <nav class="navbar navbar-default navbar-fixed-bottom">
                 <div class="container">
-                    <ui:include src="/change-language.xhtml" />
-                    <ui:insert name="bottom">(c) 2015 by FHWS</ui:insert>
+                    <div class="navbar-text">
+                        <ui:include src="/change-language.xhtml" />
+                    </div>
+                    <p class="navbar-text navbar-right">
+                        <ui:insert name="bottom">(c) 2015 by FHWS</ui:insert>
+                    </p>
                 </div>
             </nav>
 

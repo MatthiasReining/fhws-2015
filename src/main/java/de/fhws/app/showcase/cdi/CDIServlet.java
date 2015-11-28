@@ -6,8 +6,11 @@
 package de.fhws.app.showcase.cdi;
 
 import java.io.IOException;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,9 +36,13 @@ public class CDIServlet extends HttpServlet {
     @Killer
     String killerMessage;
 
+    @Inject
+    Message2 message2;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String m = message.getMessage();
+        resp.getWriter().println("message2: " + message2.getMessage2());
         resp.getWriter().println(m);
         resp.getWriter().println("\n");
         resp.getWriter().println(stringMessage);
