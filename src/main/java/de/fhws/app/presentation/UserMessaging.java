@@ -1,9 +1,11 @@
 package de.fhws.app.presentation;
 
+import de.fhws.app.business.logmanager.boundary.LogEvent;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javax.enterprise.event.Observes;
 import javax.inject.Singleton;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -19,18 +21,19 @@ public class UserMessaging {
 
     @OnMessage
     public void incomingMessage(String message, Session session) throws IOException {
-        System.out.println("message: " + message);
-        System.out.println("session id : " + session.getId());
+        sendBroadcast(message);
+    }
 
-        System.out.println("number of clients " + clients.size());
+    protected void sendBroadcast(String message) throws IOException {
         synchronized (clients) {
             for (Session s : clients) {
-                if (!s.getId().equals(session.getId())) {
-                    System.out.println("send message to " + session.getId());
-                    s.getBasicRemote().sendText(message);
-                }
+                s.getBasicRemote().sendText(message);
             }
         }
+    }
+
+    public void manageLogEventsAtConsole(@Observes @LogEvent String message) throws IOException {
+        sendBroadcast(message);
     }
 
     @OnOpen
