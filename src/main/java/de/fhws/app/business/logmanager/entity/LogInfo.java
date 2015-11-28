@@ -15,11 +15,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @NamedQueries({
     @NamedQuery(name = LogInfo.findAll, query = "SELECT a FROM LogInfo a")
 })
+@XmlRootElement
 public class LogInfo implements Serializable {
 
     public static final String findAll = "de.fhws.app.business.logmananager.entity.findAll";
